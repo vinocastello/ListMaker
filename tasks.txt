@@ -1,0 +1,7 @@
+Name of list: tasks
+Length of list: 4
+items:
+1. eat
+2. hibernate
+3. repeat
+4. shower

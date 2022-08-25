@@ -8,7 +8,9 @@ def print_list(lst):
 
 def save_list(list_choices):
     # Always overwrite
-    open(f"{list_choices}.txt", 'w').close()
+    if os.path.exists(f"{list_choices.name}.txt"):
+        open(f"{list_choices.name}.txt", 'w').close()
+    
     with open(f"{list_choices.name}.txt",mode = "a") as f:
         f.write(f"Name of list: {list_choices.name}\n")
         f.write(f"Length of list: {list_choices.length}\n")
@@ -101,6 +103,10 @@ class LIST_CHOICES:
         if self.length <= 0:
             print(f"{self.name} is still empty!")
             return
+        if type(item_to_remove) == int:
+            del self.choices[item_to_remove - 1]
+            self.__length -= 1
+            return
         found = False
         for i in range(1,self.length+1):
             if self.get(i) == item_to_remove:
@@ -116,20 +122,23 @@ class LIST_CHOICES:
             print(f"{item_to_remove} was not found in your list: {self.name}")
 
     def edit(self,curr_choice,edit_choice):
-        if curr_choice == edit_choice:
-            print("Your new choice is the same as the old one!")
-            return
-        found = False
-        for i in range(1,self.length+1):
-            if self.get(i) == curr_choice:
-                found = True
-                print(f"{curr_choice} is found!")
-                self.choices[i] = edit_choice
-                print(f"changing {curr_choice} with {edit_choice}...")
-                time.sleep(2)
-                break
-        if not found:
-            print(f"{curr_choice} was not found in your list: {self.name}")
+        if type(curr_choice) == int:
+            self.choices[curr_choice - 1] = edit_choice
+        else:
+            if curr_choice == edit_choice:
+                print("Your new choice is the same as the old one!")
+                return
+            found = False
+            for i in range(1,self.length+1):
+                if self.get(i) == curr_choice:
+                    found = True
+                    print(f"{curr_choice} is found!")
+                    self.choices[i] = edit_choice
+                    print(f"changing {curr_choice} with {edit_choice}...")
+                    time.sleep(2)
+                    break
+            if not found:
+                print(f"{curr_choice} was not found in your list: {self.name}")
 
 LIST_OF_CHOICES = []
 
@@ -167,11 +176,12 @@ while True:
         lst_name = input("name of list to load: ")
         lst = load_list(lst_name)
         if lst != -1:
-            lst.show()
             while True:
+                lst.show()
                 print("[1] Add item to list")
                 print("[2] Edit item in list")
                 print("[3] Remove item in list")
+                print("[4] Exit")
                 new_choice = input("What do you want to do (1/2/3): ")
                 if new_choice == "1":
                     new_item = input("New item to be added: ")
@@ -179,12 +189,20 @@ while True:
                 elif new_choice == "2":
                     old_item_pos = int(input("Position of item you want to edit (number): "))
                     new_item = input("What you will replace it with: ")
-                    lst.edit()
+                    lst.edit(old_item_pos,new_item)
+                    print("Successfully edited list!")
+                elif new_choice == "3":
+                    del_item_pos = int(input("Position of item you want to delete (number): "))
+                    lst.remove(del_item_pos)
+                elif new_choice == "4":
+                    print("Going back to main menu...")
+                    break
+                save_list(lst)
 
     elif command == "3":
         print("Thank you for using my app!")
         print("Exiting...")
-        time.sleep(2)
+        time.sleep(1)
         break
     else:
         print("Invalid command!")
