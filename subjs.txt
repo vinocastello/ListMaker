@@ -1,0 +1,11 @@
+Name of list: subjs
+Length of list: 8
+items:
+1. cs 133
+2. cs 196
+3. cs 198
+4. engg 150
+5. sts 1
+6. pi 100
+7. span 10
+8. pe 2
