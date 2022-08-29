@@ -38,3 +38,5 @@ quotes = [
 
 def get_quote():
     return f"`{random.choice(quotes)}`"
+
+cat_commands = {"cat","cats","catto","cattos","mao","meow","pusa"}

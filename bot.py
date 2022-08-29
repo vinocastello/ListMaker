@@ -1,12 +1,25 @@
 import discord
 import responses
+import random
+import glob
 
+cat_commands = {"cat","cats","catto","cattos","mao","meow","pusa"}
+pics = glob.glob('pics')
+print(f"pics = {pics}")
 
 # Send messages
 async def send_message(message, user_message, is_private):
+    pic_commands = {}
     try:
-        response = responses.handle_response(user_message,str(message.author))
-        await message.author.send(response) if is_private else await message.channel.send(response)
+        prefix,command = user_message.split(" ")
+        if prefix == '$mao':
+            if command in cat_commands:
+                with open(random.choice(pics), 'rb') as f:
+                    picture = discord.File(f)
+                    await message.author.send(file=picture) if is_private else await message.channel.send(file=picture)
+            else:
+                response = responses.handle_response(user_message,str(message.author))
+                await message.author.send(response) if is_private else await message.channel.send(response)
 
     except Exception as e:
         print(e)
