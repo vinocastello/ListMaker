@@ -22,11 +22,12 @@ async def send_message(message, user_message, is_private):
                 await message.author.send(response) if is_private else await message.channel.send(response)
 
     except Exception as e:
+        print("You got an error!")
         print(e)
 
 
 def run_discord_bot():
-    TOKEN = 'MTAxMzMzMDQ2MTAxMzA0OTQxNA.GjXe4w.ckHzRYMjjRlAhpUmPq4dKEgSrD5HLJjDvMOyk8'
+    TOKEN = 'MTAxMzMzMDQ2MTAxMzA0OTQxNA.Gdm6WV.B9QvjwNBVYnfUj12wF_u2Mhjjsjf0Vgkh-3MVM'
     client = discord.Client(intents=discord.Intents.all())
 
     @client.event

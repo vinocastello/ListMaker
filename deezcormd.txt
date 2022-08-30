@@ -1,3 +1,0 @@
-Token = MTAxMzMzMDQ2MTAxMzA0OTQxNA.GjXe4w.ckHzRYMjjRlAhpUmPq4dKEgSrD5HLJjDvMOyk8
-link list = https://discord.com/api/oauth2/authorize?client_id=1013059705582657566&permissions=534723950656&scope=botm
-meowist bot = https://discord.com/api/oauth2/authorize?client_id=1013330461013049414&permissions=1634235578432&scope=bot
