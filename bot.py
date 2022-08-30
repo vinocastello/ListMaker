@@ -2,6 +2,9 @@ import discord
 import responses
 import random
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 cat_commands = {"cat","cats","catto","cattos","mao","meow","pusa"}
 pics = os.listdir('pics/')
@@ -27,7 +30,7 @@ async def send_message(message, user_message, is_private):
 
 
 def run_discord_bot():
-    TOKEN = 'MTAxMzMzMDQ2MTAxMzA0OTQxNA.Gdm6WV.B9QvjwNBVYnfUj12wF_u2Mhjjsjf0Vgkh-3MVM'
+    TOKEN = os.getenv("TOKEN")
     client = discord.Client(intents=discord.Intents.all())
 
     @client.event

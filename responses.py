@@ -2,7 +2,6 @@ import mao_quotes
 import weather
 
 def handle_response(command,sender) -> str:
-    print(f"sender = {sender}")
     if command == 'hi' or command == 'hello':
         name_only = sender[:sender.find("#")]
         return f'Magandang araw sa iyo kasamang {name_only}!'
