@@ -1,24 +1,37 @@
+from http import client
 import discord
 import responses
 import random
-import glob
+import os
 
 cat_commands = {"cat","cats","catto","cattos","mao","meow","pusa"}
-pics = glob.glob('pics')
-print(f"pics = {pics}")
+pics = os.listdir('pics/')
 
 # Send messages
 async def send_message(message, user_message, is_private):
     pic_commands = {}
     try:
         prefix,command = user_message.split(" ")
+        command = command.lower()
         if prefix == '$mao':
             if command in cat_commands:
-                with open(random.choice(pics), 'rb') as f:
+                with open(f'pics/{random.choice(pics)}', 'rb') as f:
                     picture = discord.File(f)
                     await message.author.send(file=picture) if is_private else await message.channel.send(file=picture)
+            elif command == 'list' or command == 'lists' or command == 'notes':
+                items = []
+                i = 1
+                while True:
+                    await message.channel.send(f"item #{i}")
+                    i += 1
+                    item = await client.wait_for("message")
+                    if item == "END":
+                        break
+                    items.append(item)
+                print(f"items = {items}")
+                await message.channel.send(responses.get_list_display(items))
             else:
-                response = responses.handle_response(user_message,str(message.author))
+                response = responses.handle_response(command,str(message.author))
                 await message.author.send(response) if is_private else await message.channel.send(response)
 
     except Exception as e:
