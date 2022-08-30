@@ -1,4 +1,3 @@
-from http import client
 import discord
 import responses
 import random
@@ -18,18 +17,6 @@ async def send_message(message, user_message, is_private):
                 with open(f'pics/{random.choice(pics)}', 'rb') as f:
                     picture = discord.File(f)
                     await message.author.send(file=picture) if is_private else await message.channel.send(file=picture)
-            elif command == 'list' or command == 'lists' or command == 'notes':
-                items = []
-                i = 1
-                while True:
-                    await message.channel.send(f"item #{i}")
-                    i += 1
-                    item = await client.wait_for("message")
-                    if item == "END":
-                        break
-                    items.append(item)
-                print(f"items = {items}")
-                await message.channel.send(responses.get_list_display(items))
             else:
                 response = responses.handle_response(command,str(message.author))
                 await message.author.send(response) if is_private else await message.channel.send(response)
@@ -39,7 +26,7 @@ async def send_message(message, user_message, is_private):
 
 
 def run_discord_bot():
-    TOKEN = 'MTAxMzMzMDQ2MTAxMzA0OTQxNA.GA3SH-.GX_QwoCTJN2F6IFzMoJRmD6jn-cYMZuF_ZzvBI'
+    TOKEN = 'MTAxMzMzMDQ2MTAxMzA0OTQxNA.GjXe4w.ckHzRYMjjRlAhpUmPq4dKEgSrD5HLJjDvMOyk8'
     client = discord.Client(intents=discord.Intents.all())
 
     @client.event
