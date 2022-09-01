@@ -16,7 +16,7 @@ def handle_response(command,sender) -> str:
         loc = ""
         if sender == "KomradeKat#9491":
             loc = "Malabon, PH"
-        else:
+        elif sender == "eya#6602":
             loc = "Calamba, PH"
         return weather.get_weather(loc)
     elif command == 'time' or command == 'date':
