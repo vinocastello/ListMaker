@@ -3,6 +3,7 @@ import weather
 from datetime import datetime
 
 def handle_response(command,sender) -> str:
+    extra_args = [command[:7],command[8:]]
     if command == 'hi' or command == 'hello':
         name_only = sender[:sender.find("#")]
         return f'Magandang araw sa iyo kasamang {name_only}!'
@@ -13,16 +14,14 @@ def handle_response(command,sender) -> str:
     elif command == 'calendar' or command == 'petsa' or command == 'notion':
         return "https://www.notion.so/Calendar-c01b1b77cf2b4eee8333307be7f5b5f1"
     elif command == 'weather':
-        loc = ""
-        if sender == "KomradeKat#9491":
-            loc = "Malabon, PH"
-        elif sender == "eya#6602":
-            loc = "Calamba, PH"
+        loc = "Malabon, PH"
         return weather.get_weather(loc)
     elif command == 'time' or command == 'date':
         curr = datetime.now()
         dt = curr.strftime("%d/%m/%Y %H:%M:%S")
         return f"`{dt}`"
+    else:
+        return f"Putangina ano yung {command}!"
 
     #  return 'Yeah, I don\'t know. Try typing "!help".'
 

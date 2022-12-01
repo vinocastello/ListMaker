@@ -20,8 +20,6 @@ async def send_message(client,message, user_message, is_private):
                 with open(f'pics/{random.choice(pics)}', 'rb') as f:
                     picture = discord.File(f)
                     await message.author.send(file=picture) if is_private else await message.channel.send(file=picture)
-            elif command == "weather":
-                loc = await client.wait_for("message",check=lambda msg: msg.author == client.user)
             else:
                 response = responses.handle_response(command,str(message.author))
                 await message.author.send(response) if is_private else await message.channel.send(response)
